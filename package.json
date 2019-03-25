@@ -1,0 +1,20 @@
+{
+  "name": "how-it-works",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "vuepress dev",
+    "build": "vuepress build -d ./docs"
+  },
+  "repository": "git@github.com:talltotal/how-it-works.git",
+  "author": "yangweicong <yangweicong@nicomama.com>",
+  "license": "MIT",
+  "resolutions": {
+    "webpack-dev-middleware": "3.6.0"
+  },
+  "dependencies": {
+    "vuepress": "^0.14.10",
+    "vuepress-theme-talltotal": "^0.0.3"
+  }
+}
