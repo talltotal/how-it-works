@@ -96,11 +96,16 @@ template
         - **normalModuleFactory.hook**: `before-resolve`
         - **normalModuleFactory.hook**: `factory`
         - **normalModuleFactory.hook**: `resolver(): resolver`
-            - 入口字符串正则解析（可以指定loador）
-                - '-!xxxx'
-                - '!xxxx'
-                - '!!xxxx'
-                - 'xxxx!loaderName?options'
+            - `require` 字符串正则解析，得到内敛 `loader`
+                > 格式：`loader!loader!loader!file`
+                > 前部可以设置此文件是否使用外部的前/中/后处理
+                > 1. '-!xxxx' 只使用外部后处理
+                > 2. '!xxxx' 不使用外部中处理
+                > 3. '!!xxxx' 不使用任何外部loader
+            - 内敛结合外部配置得到所有 `loader`
+                > `loader` 根据 `enforce` 指定使用的时机并以此排序
+                > 顺序：外部后 - 内敛 - 外部中 - 外部前
+                > 后续会从左往右调用 `loader` 的 `pitch` 方法（有返回值时不再执行后面的 `loader`），再从右往左调用 `loader` 方法
             - 根据 `resolve` 验证模块和loader有效
             - 构建解析器
             - **normalModuleFactory.hook**: `parser`
@@ -116,7 +121,7 @@ template
         - 构建
             - 代码文本传给`loader`处理
                 > `loader` 内部解析文件处理完后转成**js格式文本**返回或直接调用`loaderContext.callback`
-            - 解析器解析代码
+            - 解析器解析处理后的代码，得到 `dependencies`
                 - **parser.hook**: `program(ast, comments): any`
         - 收集构建过程的warn/error
         - 对依赖排序
@@ -131,23 +136,35 @@ template
     - **compilation.hook**: `finish-modules(modules): void`
 4. chunk 包装
     - **compilation.hook**: `seal(modules): void`
-    - 由 `preparedChunk` 开始创建 `chunk`
-    - 根据模块网络创建chunk网络
-    - **compilation.hook**: `optimize(): void`
-    - **compilation.hook**: `optimize-modules-basic(modules): Boolean`
-    - **compilation.hook**: `optimize-modules(modules): Boolean`
-    - **compilation.hook**: `optimize-modules-advanced(modules): Boolean`
-    - **compilation.hook**: `after-optimize-modules(modules): void`
-    - **compilation.hook**: `optimize-chunks-basic(chunks): Boolean`
-    - **compilation.hook**: `optimize-chunks(chunks): Boolean`
-    - **compilation.hook**: `optimize-chunks-advanced(chunks): Boolean`
-    - **compilation.hook**: `after-optimize-chunks(chunks): void`
-    - **compilation.hook**: `optimize-tree(chunks, modules, cb): void`
-    - **compilation.hook**: `after-optimize-tree(chunks, modules): void`
-    - **compilation.hook**: `optimize-chunk-modules-basic(chunks, modules): Boolean`
-    - **compilation.hook**: `optimize-chunk-modules(chunks, modules): Boolean`
-    - **compilation.hook**: `optimize-chunk-modules-advanced(chunks, modules): Boolean`
-    - **compilation.hook**: `after-chunk-modules(chunks, modules): void`
+    - 优化 Dependencie
+        - **compilation.hook**: `optimizeDependenciesBasic(modules): Boolean`
+        - **compilation.hook**: `optimizeDependencies(modules): Boolean`
+        - **compilation.hook**: `optimizeDependenciesAdvanced(modules): Boolean`
+        - **compilation.hook**: `afterOptimizeDependencies(modules): void`
+    - 创建 chunk
+        - **compilation.hook**: `beforeChunks(): void`
+        - 由 `~~preparedChunk~~_preparedEntrypoints` 创建 `chunk`
+        - 根据模块网络创建chunk网络
+        - module 排序
+        - **compilation.hook**: `afterChunks(): void`
+    - 优化 module
+        - **compilation.hook**: `optimize(): void`
+        - **compilation.hook**: `optimize-modules-basic(modules): Boolean`
+        - **compilation.hook**: `optimize-modules(modules): Boolean`
+        - **compilation.hook**: `optimize-modules-advanced(modules): Boolean`
+        - **compilation.hook**: `after-optimize-modules(modules): void`
+    - 优化 chunk
+        - **compilation.hook**: `optimize-chunks-basic(chunks): Boolean`
+        - **compilation.hook**: `optimize-chunks(chunks): Boolean`
+        - **compilation.hook**: `optimize-chunks-advanced(chunks): Boolean`
+        - **compilation.hook**: `after-optimize-chunks(chunks): void`
+    - 优化 module-chunk 树
+        - **compilation.hook**: `optimize-tree(chunks, modules, cb): void`
+        - **compilation.hook**: `after-optimize-tree(chunks, modules): void`
+        - **compilation.hook**: `optimize-chunk-modules-basic(chunks, modules): Boolean`
+        - **compilation.hook**: `optimize-chunk-modules(chunks, modules): Boolean`
+        - **compilation.hook**: `optimize-chunk-modules-advanced(chunks, modules): Boolean`
+        - **compilation.hook**: `after-chunk-modules(chunks, modules): void`
     - **compilation.hook**: `should-record(): Boolean`
     - **compilation.hook**: `revive-modules(modules, records): void`
     - **compilation.hook**: `optimize-module-order(modules): void`
@@ -163,16 +180,16 @@ template
     - **compilation.hook**: `after-optimize-chunk-ids(chunks): void`
     - **compilation.hook**: `record-modules(modules, records): void`
     - **compilation.hook**: `record-chunks(chunks, records): void`
-    - **compilation.hook**: `before-hash(): void`
     - 创建hash
+        - **compilation.hook**: `before-hash(): void`
         - **compilation.hook**: `chunk-hash(chunk, chunkHash): void`
-    - **compilation.hook**: `record-hash(records): void`
-    - **compilation.hook**: `before-module-assets(): void`
+        - **compilation.hook**: `record-hash(records): void`
     - 创建模块静态化
+        - **compilation.hook**: `before-module-assets(): void`
         - **compilation.hook**: `module-asset(module, fileName): void`
     - **compilation.hook**: `should-generate-chunk-assets(): Boolean`
-    - **compilation.hook**: `before-chunk-assets(): Boolean`
     - 创建chunk静态化
+        - **compilation.hook**: `before-chunk-assets(): Boolean`
         - **compilation.hook**: `chunk-asset(chunk, file): void`
     - **compilation.hook**: `additional-chunk-assets(chunks): void`
     - summarizeDependencies
