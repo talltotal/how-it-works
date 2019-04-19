@@ -92,7 +92,7 @@ template
 - **hook**: `make(compilation, cb): void`
     - 真正编译阶段，插件在这个hook中调用 `compilation.prefetch` / `compilation.addEntry` 开始
     - 依赖（`dependencie`）交给模块工厂得到模块实例 `module`
-        > 自定义的工厂需有create函数
+        > 自定义的工厂需有`create`函数
         - **normalModuleFactory.hook**: `before-resolve`
         - **normalModuleFactory.hook**: `factory`
         - **normalModuleFactory.hook**: `resolver(): resolver`
@@ -121,9 +121,11 @@ template
         - 构建
             - 代码文本传给`loader`处理
                 > `loader` 内部解析文件处理完后转成**js格式文本**返回或直接调用`loaderContext.callback`
-            - 解析器解析处理后的代码，得到 `dependencies`
+            - 解析器解析处理后的代码
                 - **parser.hook**: `program(ast, comments): any`
-        - 收集构建过程的warn/error
+                    > 得到 `dependencies`
+                - 得到初始 `hash`
+        - 收集构建过程的 `warn/error`
         - 对依赖排序
         - **compilation.hook**: `failed-module(modules): void`
         - **compilation.hook**: `succeed-module(modules): void`
@@ -141,10 +143,10 @@ template
         - **compilation.hook**: `optimizeDependencies(modules): Boolean`
         - **compilation.hook**: `optimizeDependenciesAdvanced(modules): Boolean`
         - **compilation.hook**: `afterOptimizeDependencies(modules): void`
-    - 创建 chunk
+    - 构建 chunk
         - **compilation.hook**: `beforeChunks(): void`
-        - 由 `~~preparedChunk~~_preparedEntrypoints` 创建 `chunk`
-        - 根据模块网络创建chunk网络
+        - 由 `~~preparedChunk~~_preparedEntrypoints` 创建 `chunk`，并以此为 `entrypoint`
+        - ‘ChunkGroup’ 、‘Chunk’、‘Module’ 之间相互绑定，形成chunk网络，舍弃未引用的部分
         - module 排序
         - **compilation.hook**: `afterChunks(): void`
     - 优化 module
@@ -181,6 +183,7 @@ template
     - **compilation.hook**: `record-modules(modules, records): void`
     - **compilation.hook**: `record-chunks(chunks, records): void`
     - 创建hash
+        > `crypto`
         - **compilation.hook**: `before-hash(): void`
         - **compilation.hook**: `chunk-hash(chunk, chunkHash): void`
         - **compilation.hook**: `record-hash(records): void`

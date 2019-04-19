@@ -1,4 +1,3 @@
-
 # [vuex-router-sync](https://www.npmjs.com/package/vuex-router-sync)
 
 1. 在 vuex 中为 router 增加 module

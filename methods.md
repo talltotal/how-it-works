@@ -1,4 +1,3 @@
-
 # [methods](https://github.com/jshttp/methods/blob/master/index.js)
 > http methods LowerCase
 
