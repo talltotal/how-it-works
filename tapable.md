@@ -48,3 +48,13 @@
         - `call`
         - `callAsync`
         - `promise`
+    - hook 类型
+        - `SyncHook` -> `applyPlugins`
+        - `SyncBailHook` -> `applyPluginsBailResult`
+        - `SyncLoopHook`
+        - `SyncWaterfallHook` -> `applyPluginsWaterfall`
+        - `AsyncParallelHook` -> `applyPluginsParallel`
+        - `AsyncParallelBailHook` -> `applyPluginsParallelBailResult`
+        - `AsyncSeriesHook` -> `applyPluginsAsync/applyPluginsAsyncSeries`
+        - `AsyncSeriesBailHook` -> `applyPluginsAsyncSeriesBailResult`
+        - `AsyncSeriesWaterfallHook` -> `applyPluginsAsyncWaterfall`
