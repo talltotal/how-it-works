@@ -9,9 +9,10 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: '首页', link: '/' },
+            { text: 'github', link: 'https://github.com/talltotal/how-it-works' },
         ],
         listAllSidebar: {
-            ignore: ['/docs/interview.'],
+            ignore: ['/docs/', '/node_modules'],
             showIndex: 'Home',
             groupByDir: true,
         },
