@@ -12,7 +12,7 @@ module.exports = {
             { text: 'github', link: 'https://github.com/talltotal/how-it-works' },
         ],
         listAllSidebar: {
-            ignore: ['/docs/', '/node_modules'],
+            ignore: ['/build/', '/node_modules'],
             showIndex: 'Home',
             groupByDir: true,
         },

@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "vuepress dev",
-    "build": "vuepress build -d ./docs"
+    "build": "vuepress build"
   },
   "repository": "git@github.com:talltotal/how-it-works.git",
   "author": "yangweicong <yangweicong@nicomama.com>",
@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "post-merge": "yarn build"
+      "post-merge": "./build/update-docs.sh"
     }
   }
 }
