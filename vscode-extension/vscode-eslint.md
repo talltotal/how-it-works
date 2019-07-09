@@ -32,12 +32,7 @@
 
 ## 代码部分
 
-> 和简单的插件不同，以 **client/server** 形式划分任务
-
-- client
-    - 注册终端的指令，并以请求形式传递给 server
-- server
-    - 执行具体的任务
+> client + server
 
 ### 首先通过 `autoFixOnSave` 看整个过程
 - 注册
