@@ -7367,10 +7367,10 @@ vuepress-html-webpack-plugin@^3.2.0:
     toposort "^1.0.0"
     util.promisify "1.0.0"
 
-vuepress-theme-talltotal@^0.0.3:
-  version "0.0.3"
-  resolved "http://registry.npm.taobao.org/vuepress-theme-talltotal/download/vuepress-theme-talltotal-0.0.3.tgz#144d89f9b3cedbdeb5a3cce46225b8bda35cad0f"
-  integrity sha1-FE2J+bPO2961o8zkYiW4vaNcrQ8=
+vuepress-theme-talltotal@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/vuepress-theme-talltotal/-/vuepress-theme-talltotal-0.0.4.tgz#38692f567a9ba7e2659e6285f5f20e95ec4a4696"
+  integrity sha512-f4pbwKXVwHq87/VBPjEy7V5XXAfbzhqFRs69QCXMYLx+5WmbJnV3OjVdldKb8m6YimGKa7vnJWwe8ugVmhCGFA==
 
 vuepress@^0.14.10:
   version "0.14.10"

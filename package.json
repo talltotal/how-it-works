@@ -16,7 +16,7 @@
   "dependencies": {
     "husky": "^3.0.0",
     "vuepress": "^0.14.10",
-    "vuepress-theme-talltotal": "^0.0.3"
+    "vuepress-theme-talltotal": "^0.0.4"
   },
   "husky": {
     "hooks": {
