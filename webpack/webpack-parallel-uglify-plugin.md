@@ -5,9 +5,10 @@
 2. 在 `compiler.done` 清除无效缓存文件
 
 
-## 缓存判断的 hash key
-- 内容：文件内容+配置项+插件版本 `source + options + webpack-parallel-uglify-plugin.package.json`
-- hash计算：`crypto.sha256.hex`
+## 缓存
+- hash key
+    - 计算内容：文件内容+配置项+插件版本 `source + options + webpack-parallel-uglify-plugin.package.json`
+    - 计算方式：`crypto.sha256.hex`
 - 缓存文件保存：以 key 为文件名保存在缓存文件夹内
 - 已缓存：缓存文件夹内是否已有此文件
 
