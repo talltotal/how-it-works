@@ -77,14 +77,27 @@
 - `compiler.hooks.watchClose`
 
 ### compile
+#### 准备
 - `compiler.hooks.beforeCompile`
 - `compiler.hooks.compile`
 - `compiler.hooks.thisCompilation`
 - `compiler.hooks.compilation`
+#### 进行（构建依赖网）
 - `compiler.hooks.make`
-    - 真正编译阶段，插件在这个hook中调用 `compilation.prefetch` / `compilation.addEntry` 开始
-    - 依赖（`dependencie`）交给模块工厂得到模块实例 `module`
-        > 自定义的工厂需有`create`函数
+    1. 从入口文件开始；即构建 dependencie 实例，调用`compilation.prefetch` / `compilation.addEntry`
+        > - SingleEntryPlugin
+        > - MultiEntryPlugin
+        > - DllEntryPlugin
+        > - DynamicEntryPlugin
+        > - PrefetchPlugin
+        > - AutomaticPrefetchPlugin
+        - `compilation.hooks.addEntry`
+        - `compilation.hooks.failedEntry`
+        - `compilation.hooks.succeedEntry`
+    2. 创建模块：由入口 dependencie 的 moduleFactory 实例 `module`（这里以`normalModuleFactory`作说明）
+        > 自定义模块类需绑定工厂：`compilation.dependencyFactories.set(userDependency, userFactory)`
+        > - 自定义的 dependencie 需继承`webpack/lib/Dependency.js`
+        > - 自定义的 factory 需有`create(data: ModuleFactoryCreateData, callback: ModuleCallback)`函数
         - **normalModuleFactory.hook**: `before-resolve`
         - **normalModuleFactory.hook**: `factory`
         - **normalModuleFactory.hook**: `resolver(): resolver`
@@ -106,9 +119,7 @@
         - 构建 `module` 实例
         - **normalModuleFactory.hook**: `module(): module`
         - 在 `dependencie` 绑定 `module` 做缓存 ············ `__NormalModuleFactoryCache`
-    - 存储模块
-        - 缓存
-    - 构建模块
+    3. 构建模块
         - **compilation.hook**: `build-module(modules): void`
         - 构建
             - 代码文本传给`loader`处理
@@ -118,14 +129,12 @@
                     > 得到 `dependencies`
                 - 得到初始 `hash`
         - 收集构建过程的 `warn/error`
-        - 对依赖排序
+        - 根据loc对依赖排序，确保后续按依赖顺序构建依赖
         - **compilation.hook**: `failed-module(modules): void`
         - **compilation.hook**: `succeed-module(modules): void`
-    - 构建模块依赖树
-        - 每个依赖即模块，根据对应的模块工厂开始实例->存储->构建
-        - 形成整一个以入口为开始的模块依赖网络
-        - 利用缓存和实例标识结束递归
+    4. 构建依赖：由3得到的模块的依赖列表即新的模块，从3开始递归创建/构建，得到最后的模块依赖网
     - 开始入口的 `module` 作为 `preparedChunk`
+#### 整理
 - 整理编译的错误和警告
 - `compilation.hooks.finishModules`
 - `compilation.hooks.seal`
