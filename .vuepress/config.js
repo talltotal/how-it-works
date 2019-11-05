@@ -5,6 +5,14 @@ module.exports = {
     head: [
         ['link', { rel: 'icon', href: '/imgs/logo.png' }]
     ],
+    markdown: {
+        config (md) {
+            md.renderer.rules.softbreak = (tokens, idx, options, env, vm) => {
+                return '</p><p>'
+                // return '<br />'
+            }
+        }
+    },
     theme: 'talltotal',
     themeConfig: {
         nav: [

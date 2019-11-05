@@ -12,3 +12,7 @@
 - 默认支持`postcss` `css modules` `less` `sass` `stylus`
 - 更便捷的多页面配置`pages`
 
+
+## .
+- 编译进度 `webpack.ProgressPlugin`
+

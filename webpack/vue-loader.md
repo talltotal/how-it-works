@@ -42,7 +42,8 @@
         - `transformNode`
         - `preTransformNode`
         - `postTransformNode`
-    - 节点属性说明
-        <<< @/loader/ele.ts
 - 递归遍历 ast 给所有节点打标 static、staticRoot 属性
 - 遍历 ast 输出 render 文本
+
+#### ast 节点属性说明
+<<< @/webpack/ele.ts

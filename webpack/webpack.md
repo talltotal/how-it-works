@@ -85,19 +85,19 @@
 #### 进行（构建依赖网）
 - `compiler.hooks.make`
     1. 从入口文件开始；即构建 dependencie 实例，调用`compilation.prefetch` / `compilation.addEntry`
-        > - SingleEntryPlugin
-        > - MultiEntryPlugin
-        > - DllEntryPlugin
-        > - DynamicEntryPlugin
-        > - PrefetchPlugin
-        > - AutomaticPrefetchPlugin
+        > SingleEntryPlugin
+        > MultiEntryPlugin
+        > DllEntryPlugin
+        > DynamicEntryPlugin
+        > PrefetchPlugin
+        > AutomaticPrefetchPlugin
         - `compilation.hooks.addEntry`
         - `compilation.hooks.failedEntry`
         - `compilation.hooks.succeedEntry`
     2. 创建模块：由入口 dependencie 的 moduleFactory 实例 `module`（这里以`normalModuleFactory`作说明）
         > 自定义模块类需绑定工厂：`compilation.dependencyFactories.set(userDependency, userFactory)`
-        > - 自定义的 dependencie 需继承`webpack/lib/Dependency.js`
-        > - 自定义的 factory 需有`create(data: ModuleFactoryCreateData, callback: ModuleCallback)`函数
+        > 自定义的 dependencie 需继承`webpack/lib/Dependency.js`
+        > 自定义的 factory 需有`create(data: ModuleFactoryCreateData, callback: ModuleCallback)`函数
         - **normalModuleFactory.hook**: `before-resolve`
         - **normalModuleFactory.hook**: `factory`
         - **normalModuleFactory.hook**: `resolver(): resolver`
