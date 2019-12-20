@@ -70,7 +70,8 @@
 - `compiler.hooks.additionalPass`
 - `compiler.hooks.failed`
 
-### watch
+### watch([watchpack](./watchpack.html))
+> 根据文件变化时间戳判断是否更新
 - `compiler.hooks.watchRun`
 - compile
 - emit

@@ -7372,10 +7372,10 @@ vuepress-theme-talltotal@^0.0.4:
   resolved "https://registry.npmjs.org/vuepress-theme-talltotal/-/vuepress-theme-talltotal-0.0.4.tgz#38692f567a9ba7e2659e6285f5f20e95ec4a4696"
   integrity sha512-f4pbwKXVwHq87/VBPjEy7V5XXAfbzhqFRs69QCXMYLx+5WmbJnV3OjVdldKb8m6YimGKa7vnJWwe8ugVmhCGFA==
 
-vuepress@^0.14.10:
-  version "0.14.10"
-  resolved "http://registry.npm.taobao.org/vuepress/download/vuepress-0.14.10.tgz#070281ad0c9d48e7c848eb9511c96ceb106414ab"
-  integrity sha1-BwKBrQydSOfISOuVEcls6xBkFKs=
+vuepress@^0.14.11:
+  version "0.14.11"
+  resolved "https://registry.npmjs.org/vuepress/-/vuepress-0.14.11.tgz#fc6ba0e609e3433a8070e95301b4d987712b2a08"
+  integrity sha512-5iB7iWeEG7GtEiNwmS2LOcifp2V93aZ4+oO9pq8OcUgOWay9/NqmNqzg7KQ7AJ0puZGg0tYwUKKjifIWIPE8jQ==
   dependencies:
     "@babel/core" "7.0.0-beta.47"
     "@vue/babel-preset-app" "3.0.0-beta.11"
