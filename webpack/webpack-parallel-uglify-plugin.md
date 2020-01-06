@@ -16,7 +16,7 @@
 ## 多线程
 > 线程任务（即单文件混淆）相互独立
 
-- [`worker-farm`](../worker-farm.html)
+- [`worker-farm`](../back-end/worker-farm.html)
 - 线程数：配置值 / 任务数 / cpu数
 - 子线程中需要 webpack 相关信息，用文件的形式共享（临时文件tmpFile）
 
