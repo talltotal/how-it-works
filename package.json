@@ -14,7 +14,6 @@
     "webpack-dev-middleware": "3.6.0"
   },
   "dependencies": {
-    "husky": "^3.0.0",
     "vuepress": "^0.14.11",
     "vuepress-theme-talltotal": "^0.0.9"
   },
@@ -22,5 +21,8 @@
     "hooks": {
       "post-merge": "./build/update-docs.sh"
     }
+  },
+  "devDependencies": {
+    "husky": "^3.1.0"
   }
 }
