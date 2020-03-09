@@ -46,6 +46,11 @@
 - `Object.getOwnPropertySymbols()` 获取对象**自身**上的所有 ‘Symbol’ 属性（包括不可枚举）
     > 对象初始的时候不会有任何‘Symbol’属性
 
+||`for...in`|`keys()`|`getOwnPropertyNames()`|`getOwnPropertySymbols()`|
+|---|:---:|:---:|:---:|:---:|
+|包括继承|Y|N|N|N|
+|包括不可枚举|N|N|Y|Y|
+|类型|字符串|字符串|字符串|Symbol|
 
 ## 位运算状态器
 > 在一个值中定义多种状态值
@@ -68,6 +73,6 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
 
 - 设计：在0/1的值中，0代表`false`，1代表`true`，将值的某一位的0/1值约定为一种状态的是与否；
 - 取值：使用`&`操作符
-- 定值：同时多个状态为`true`时，状态值相加即可
+- 定值：要为多个状态设置为`true`时，状态值相加即可
 
 
