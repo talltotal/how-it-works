@@ -28,7 +28,7 @@ use vscode api:
 /^ *:?-+:? *$/
 ```
 
-### [markdown-it](https://markdown-it.github.io)
+## [markdown-it](https://markdown-it.github.io)
 1. parse
 2. render
 
@@ -43,7 +43,7 @@ use vscode api:
     2. 逐行依次给 block rules 匹配处理
 
 
-#### table
+### table
 > 主要为*验证*是否为标准的table，解析table行列的position
 
 1. 至少两行
