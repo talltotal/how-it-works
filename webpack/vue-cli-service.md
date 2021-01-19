@@ -142,6 +142,7 @@
         // 编译进度
         'webpack/lib/ProgressPlugin',
         require('webpack').DefinePlugin,
+        // 区分大小写的路径
         'case-sensitive-paths-webpack-plugin',
         '@soda/friendly-errors-webpack-plugin',
         'html-webpack-plugin',
