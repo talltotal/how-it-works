@@ -3,7 +3,7 @@
 
 ## 功能
 - 根据大标签的type，做不同处理：高亮 / lint
-- 自动补全 component names 和 attributes）
+- 自动补全 component names 和 attributes
 
 
 ## 工程
