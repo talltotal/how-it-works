@@ -1,4 +1,5 @@
 # webpack
+从入口文件开始解析构成各module的依赖网，划分chunk，按asset输出。
 
 ## 设计
 1. **插件模式**（[tapable](https://github.com/webpack/tapable)）
