@@ -1,10 +1,11 @@
 # [NUXT](https://zh.nuxtjs.org/)
 
 ## 工程
-- bin
-    - `package.json-bin` [配置可执行文件](https://docs.npmjs.com/files/package.json.html#bin)
+- 终端脚本工具·`cli`
+    - 在`package.json`配置`bin`，相关说明见[配置可执行文件](https://docs.npmjs.com/files/package.json.html#bin)
     - `#!/usr/bin/env node` 声明可执行文件以nodejs运行
-- 
+    - 由`NuxtCommand`类组织不同指令的整体运行流程、配置获取、Nuxt能力获取
+- 核心·`core`
 
 
 ## 设计

@@ -1,5 +1,9 @@
 # webpack@4.x
-从入口文件开始解析构成各module的依赖网，分解为chunk，按asset输出。
+从入口文件开始，构建module，匹配文件类型的loader链，运行loader进行处理，得到module的依赖文件。
+再对依赖文件进行module构建，由此递归形成module的依赖网。
+根据入口和其他成组需要，组织chunk与module映射关系。最后根据chunk做静态文件的输出。
+
+
 
 ## 设计
 1. **插件模式**（[tapable](https://github.com/webpack/tapable)）

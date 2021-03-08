@@ -42,7 +42,7 @@
     - script：`...loaders!vue-loader??vue-loader-options!./app.vue?type=script&id=ed45c92a&`
     - style：`...afterLoaders!stylePostLoader!...beforeLoaders!vue-loader??vue-loader-options!./app.vue?type=style&id=ed45c92a&index=0&lang=less&`
 7. `vue-loader`再次解析，针对不同的`type`处理返回`.vue`文件中不同的部分
-8. ‘templateLoader’-[`vue-template-compiler`](#vue-template-compiler) 解析html返回js
+8. ‘templateLoader’-[`vue-template-compiler`](#vue-template-compiler) 模版解析返回js，即render方法
 9. ‘stylePostLoader’-`postcss` 解析返回
 
 
