@@ -298,3 +298,113 @@ const envOptions = {
         - 取出上面保存的script加nomodule属性，并加到当前的html中，删除临时文件
 
 
+
+
+## 优化编译配置
+在默认的配置下，优化编译性能。
+在`package.json`增加插件配置：
+```json
+{
+  "vuePlugins": {
+    "service": [
+      "./my/vue/plugin.js"
+    ]
+  }
+}
+```
+```js
+module.exports = (api) => {
+    api.chainWebpack(webpackConfig => {
+        // receive the chainable webpack config
+    })
+    api.configureWebpack(webpackConfig => {
+        // receive the raw webpack config
+    })
+}
+```
+
+### 增加css文件cache
+```js
+const cssVersion = {
+    'css-loader': require('css-loader/package.json').version,
+    'postcss-loader': require('postcss-loader/package.json').version
+}
+const vueVersion = {
+    ...cssVersion,
+    'vue-loader': require('vue-loader/package.json').version,
+    '@vue/component-compiler-utils': require('@vue/component-compiler-utils/package.json').version,
+    'vue-template-compiler': require('vue-template-compiler/package.json').version
+}
+const lessVersion = {
+    ...cssVersion,
+    'less-loader': require('less-loader/package.json').version
+}
+const lessVueVersion = {
+    ...vueVersion,
+    'less-loader': require('less-loader/package.json').version
+}
+/* eslint-disable indent */
+webpackConfig.module.rule('less')
+    .oneOf('vue-modules')
+        .use('cache-loader')
+            .loader(require.resolve('cache-loader'))
+            .after('extract-css-loader')
+            .options(api.genCacheConfig('less-vue-modules-loader', lessVueVersion))
+            .end()
+        .end()
+    .oneOf('vue')
+        .use('cache-loader')
+            .loader(require.resolve('cache-loader'))
+            .after('extract-css-loader')
+            .options(api.genCacheConfig('less-vue-loader', lessVueVersion))
+            .end()
+        .end()
+    .oneOf('normal')
+        .use('cache-loader')
+            .loader(require.resolve('cache-loader'))
+            .after('extract-css-loader')
+            .options(api.genCacheConfig('less-normal-loader', lessVersion))
+
+webpackConfig.module.rule('css')
+    .oneOf('vue-modules')
+        .use('cache-loader')
+            .loader(require.resolve('cache-loader'))
+            .after('extract-css-loader')
+            .options(api.genCacheConfig('css-vue-modules-loader', vueVersion))
+            .end()
+        .end()
+    .oneOf('vue')
+        .use('cache-loader')
+            .loader(require.resolve('cache-loader'))
+            .after('extract-css-loader')
+            .options(api.genCacheConfig('css-vue-loader', vueVersion))
+            .end()
+        .end()
+    .oneOf('normal')
+        .use('cache-loader')
+            .loader(require.resolve('cache-loader'))
+            .after('extract-css-loader')
+            .options(api.genCacheConfig('css-normal-loader', cssVersion))
+```
+
+
+### 注意无法缓存的`css`
+`less-loader`不会处理文件中的`@import('xxx.css')`，由`css-loader`拼接loader处理。
+这个过程无法将`cache-loader`加入。
+
+
+### 给`optimize-css`增加缓存
+`@intervolga/optimize-cssnano-plugin@1.0.5`没有支持缓存的功能，
+可以替换插件，这里以`css-minimizer-webpack-plugin`为例。
+```js
+if (webpackConfig.plugins.has('optimize-css')) {
+    webpackConfig
+        .plugins
+        .delete('optimize-css')
+
+    webpackConfig
+        .plugin('css-minimizer-webpack-plugin')
+        .use(require.resolve('css-minimizer-webpack-plugin'))
+}
+```
+

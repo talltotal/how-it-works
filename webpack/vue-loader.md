@@ -42,7 +42,7 @@
     - script：`...loaders!vue-loader??vue-loader-options!./app.vue?type=script&id=ed45c92a&`
     - style：`...afterLoaders!stylePostLoader!...beforeLoaders!vue-loader??vue-loader-options!./app.vue?type=style&id=ed45c92a&index=0&lang=less&`
 7. `vue-loader`再次解析，针对不同的`type`处理返回`.vue`文件中不同的部分
-8. ‘templateLoader’-[`vue-template-compiler`](#vue-template-compiler) 解析html返回js
+8. ‘templateLoader’-[`vue-template-compiler`](#vue-template-compiler) 模版解析返回js，即render方法
 9. ‘stylePostLoader’-`postcss` 解析返回
 
 
@@ -65,6 +65,31 @@
         - `postTransformNode`
 - 递归遍历 ast 给所有节点打标 static、staticRoot 属性
 - 遍历 ast 输出 render 文本
+
+
+## style
+### style scoped
+检测到`<style>`标签有`scoped`属性时，主要做两件事：组件节点增加属性、css选择器都增加属性选择器。
+- 节点增加属性
+    1. 在loader过程中，给组件配置项增加`_scopeId`
+    2. 在组件实例运行时中，创建dom元素时，取函数式组件虚拟dom上的`fnScopeId`或直接配置项的`_scopeId`做属性
+- 增加css选择器
+    1. 在loader过程中，在`@vue/component-compiler-utils/lib/compileStyle.ts`使用`postcss`中增加scoped处理插件
+    2. 在插件中，重置节点选择器函数，使用`postcss-selector-parser`给选择器增加一个属性选择器
+
+
+### style module
+检测到`<style>`标签有`module`属性时，主要做两件事：构建样式对象、更新css选择器。
+- 构建样式对象
+    1. 在loader第一阶段中，在组件配置项增加`beforeCreate`hook，注册`$style`（或其他自定义模块名）实例属性
+    2. 在loader第二阶段中，`vue-style-loader`将`css-loader`提供的`export.locals`插入到脚本中
+- 更新css选择器
+    1. 在loader第二阶段中，给`css-loader`传递了`modules`参数
+    2. 在`css-loader`中`postcss`处理css时增加 modules 相关插件
+        - `postcss-modules-values`
+        - `postcss-modules-local-by-default`
+        - `postcss-modules-extract-imports`
+        - `postcss-modules-scope`
 
 
 #### ast 节点属性说明

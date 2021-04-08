@@ -1,4 +1,9 @@
-# webpack
+# webpack@4.x
+从入口文件开始，构建module，匹配文件类型的loader链，运行loader进行处理，得到module的依赖文件。
+再对依赖文件进行module构建，由此递归形成module的依赖网。
+根据入口和其他成组需要，组织chunk与module映射关系。最后根据chunk做静态文件的输出。
+
+
 
 ## 设计
 1. **插件模式**（[tapable](https://github.com/webpack/tapable)）
@@ -6,19 +11,6 @@
     - 此模式贯彻webpack，应用于几乎所有流程中：Compiler、Compilation、Template、 ModuleFactory、Parser...
 2. **语法树**（js 解析器: [acorn](https://www.npmjs.com/package/acorn) / [acorn-dynamic-import](https://www.npmjs.com/package/acorn-dynamic-import)）
     - 解析文本，得到依赖项；为整个依赖网的构建提供基本依据
-3. **健壮性**
-    1. 入参校验
-        - 定义所有可配项的校验规则（[ajv](https://www.npmjs.com/package/ajv)）
-        - 校验有错误时，直接抛出错误（[Custom Error Types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#Custom_Error_Types)）
-    2. 多编译支持
-    3. 配置补全
-        - 定义配置项的默认值/值处理函数（包括深拷贝、兼容处理、附加项等）
-        - 基于默认配置合并/包装入参配置
-    4. node环境
-        - Logger
-        - inputFileSystem
-        - outputFileSystem
-        - watchFileSystem
 
 
 ```
@@ -36,10 +28,18 @@
 
 ## 流程
 ### 编译准备
-- 配置插件：`options.plugins` `{apply(compiler){}}`
-- `compiler.hooks.environment`
-- `compiler.hooks.afterEnvironment`
-- 内置插件：`WebpackOptionsApply`
+- 入参校验
+    - 定义所有可配项的校验规则（[ajv](https://www.npmjs.com/package/ajv)）
+    - 校验有错误时，直接抛出错误（[Custom Error Types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#Custom_Error_Types)）
+- 多编译支持
+- 配置补全
+    - 定义配置项的默认值/值处理函数（包括深拷贝、兼容处理、附加项等）
+    - 基于默认配置合并/包装入参配置
+- node环境·`lib/node/NodeEnvironmentPlugin.js`
+- 【call·hook】
+    - `compiler.hooks.environment`
+    - `compiler.hooks.afterEnvironment`
+- 配置应用·`lib/WebpackOptionsApply.js`
     - 交付件的运行环境：`target`
         - this-compilation -> MainTemplatePlugin / ChunkTemplatePlugin / HotUpdateChunkTemplatePlugin
         - compilation -> ModuleTemplatePlugin / params.normalModuleFactory / compilation.normal-module-loader
@@ -56,9 +56,10 @@
     - **hook**: `entry-option`
     - `compilation` 插件
     - ...
-- `compiler.hooks.afterPlugins`
-- `compiler.resolverFactory.hooks.resolveOptions`
-- `compiler.hooks.afterResolvers`
+- 【call·hook】
+    - `compiler.hooks.afterPlugins`
+    - `compiler.resolverFactory.hooks.resolveOptions`
+    - `compiler.hooks.afterResolvers`
 
 ### run
 - `compiler.hooks.beforeRun`
@@ -79,10 +80,11 @@
 
 ### compile
 #### 准备
-- `compiler.hooks.beforeCompile`
-- `compiler.hooks.compile`
-- `compiler.hooks.thisCompilation`
-- `compiler.hooks.compilation`
+- 【call·hook】
+    - `compiler.hooks.beforeCompile`
+    - `compiler.hooks.compile`
+    - `compiler.hooks.thisCompilation`
+    - `compiler.hooks.compilation`
 #### 进行（构建依赖网）
 - `compiler.hooks.make`
     1. 从入口文件开始；即构建 dependencie 实例，调用`compilation.prefetch` / `compilation.addEntry`
@@ -99,6 +101,7 @@
         > 自定义模块类需绑定工厂：`compilation.dependencyFactories.set(userDependency, userFactory)`
         > 自定义的 dependencie 需继承`webpack/lib/Dependency.js`
         > 自定义的 factory 需有`create(data: ModuleFactoryCreateData, callback: ModuleCallback)`函数
+        > `lib/NormalModule.js` / `lib/NormalModuleFactory.js`
         - **normalModuleFactory.hook**: `before-resolve`
         - **normalModuleFactory.hook**: `factory`
         - **normalModuleFactory.hook**: `resolver(): resolver`

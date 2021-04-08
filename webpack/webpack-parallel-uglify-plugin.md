@@ -1,5 +1,5 @@
 # [webpack-parallel-uglify-plugin@1.0.2](git://github.com/gdborton/webpack-parallel-uglify-plugin)
-> js 代码混淆插件，支持缓存/多线程
+> js 代码混淆插件，支持缓存/多进程
 
 1. 在 `compilation.optimize-chunk-assets` 做文件压缩，修改 `assetHash[assetName]` 值
 2. 在 `compiler.done` 清除无效缓存文件
@@ -13,12 +13,12 @@
 - 已缓存：缓存文件夹内是否已有此文件
 
 
-## 多线程
-> 线程任务（即单文件混淆）相互独立
+## 多进程
+> 进程任务（即单文件混淆）相互独立
 
 - [`worker-farm`](../back-end/worker-farm.html)
-- 线程数：配置值 / 任务数 / cpu数
-- 子线程中需要 webpack 相关信息，用文件的形式共享（临时文件tmpFile）
+- 进程数：配置值 / 任务数 / cpu数
+- 子进程中需要 webpack 相关信息，用文件的形式共享（临时文件tmpFile）
 
 
 ## 混淆
