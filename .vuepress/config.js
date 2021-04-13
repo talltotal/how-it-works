@@ -1,9 +1,10 @@
 module.exports = {
     base: '/how-it-works/',
     title: 'How It Works',
-    description: '...',
+    description: '记录一些项目的源码解析。',
     head: [
-        ['link', { rel: 'icon', href: '/imgs/logo.png' }]
+        ['link', { rel: 'icon', href: '/imgs/logo.png' }],
+        ['meta', { property: 'keyword', content: '代码解析,How it Works,talltotal' }],
     ],
     markdown: {
         config (md) {
