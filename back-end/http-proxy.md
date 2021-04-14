@@ -3,7 +3,6 @@
 
 
 ## 技巧？
-- export兼容：`function A(){} A.a = 1; A.b = 1; module.export = A`
 - 继承构造函数：`function Child () { Parent.call(this) }`
 - 闭包/柯里化：`function A (type) { return function B (option) { return function C (...args) {} } }`
 
