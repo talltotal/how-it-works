@@ -1,4 +1,5 @@
-# [微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/devtools.html)
+# [微信开发者工具@1.05.2103190](https://developers.weixin.qq.com/miniprogram/dev/devtools/devtools.html)
+> MacOS
 
 ```tree
 └── Contents
@@ -7,8 +8,8 @@
     ├── MacOS
     │   ├── cli ························命令行工具可执行文件，内容为：使用`Frameworks`中的`node`执行`cli.js`
     │   ├── cli.js ·····················js脚本，子进程执行`package.nw/js/common/cli/index.js`
-    │   ├── wechatdevtools ·············`package.nw/js/common/cli/index.js`中判断执行的应用
-    │   └── wechatwebdevtools ··········`package.nw/js/common/cli/index.js`中判断执行的应用
+    │   ├── wechatdevtools ·············开发模式IDE Mac程序
+    │   └── wechatwebdevtools ··········IDE Mac程序
     ├── Resources
     │   ├── bin
     │   ├── package.nw ·················包代码，由nwjs驱动，即源码解析的主要文件夹
@@ -25,7 +26,7 @@
     │   └── app.icns ···················图标
     ├── _CodeSignature
     │   └── CodeResources ··············property list 属性列表文件
-    ├── PkgInfo ························包信息？内容为：`APPLNWJS`
+    ├── PkgInfo ························包信息
     └── Info.plist ·····················property list 属性列表文件
 ```
 
@@ -39,20 +40,6 @@
 - js·snippets：`package.nw/js/libs/vseditor/extensions/wx-snippets/snippets/snippets.js.json`
 - game·snippets：`package.nw/js/libs/vseditor/extensions/wx-game-snippets/snippets/snippets.js.json`
 
-
-cli
-```bash
-#!/bin/bash
-
-cd "${0%/*}"
-
-#if [ $PWD == "/Application/wechatwebdevtoolsdeta.app/Contents/MacOS" ]
-#then
-#  '../Versions/86.0.4240.111/wechatwebdevtoolsdeta Helper.app/Contents/MacOS/node' ./cli.js "$@"
-#else
-'../Frameworks/nwjs Framework.framework/Helpers/wechatwebdevtools Helper (Renderer).app/Contents/MacOS/node' ./cli.js "$@"
-#fi
-```
 
 
 ## 小程序/小游戏编译

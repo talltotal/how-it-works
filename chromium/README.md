@@ -62,5 +62,21 @@ Blink·`third_party/blink/README.md`
 - 绘制·`third_party/blink/renderer/core/paint/README.md`
 
 
-
+[处理JavaScript属性](https://v8.dev/blog/fast-properties)
+- JS对象：包括属性（propery）和元素（element）
+    - 用不同的使用模式访问和添加属性，更有效
+    - 属性
+        - 命名属性（named properties）
+        - `{a:1, b:2}`
+        - 以类似元素的方式存储在单独的数组中，另外元数据（HiddenClass）保存键到属性数组中的位置
+        - HiddenClass
+    - 元素
+        - 索引属性（indexed properties）
+        - `{1:'a', 2:'b'}` / `['a', 'b']`
+        - 表示为简单数组 - 基于稀疏字典的表示形式以节省内存
+        - 主要用于`Array.prototype`
+在处理整数索引和命名属性方面的区别
+在处理动态添加的属性时提供快速的属性访问(HiddenClasses)
+内联缓存
+sparse dictionary稀疏字典
 
