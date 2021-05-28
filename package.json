@@ -14,8 +14,8 @@
     "webpack-dev-middleware": "3.6.0"
   },
   "dependencies": {
-    "vuepress": "^0.14.11",
-    "vuepress-theme-talltotal": "^0.0.9"
+    "vuepress": "^1.8.2",
+    "vuepress-theme-talltotal": "^0.0.13"
   },
   "husky": {
     "hooks": {
@@ -23,6 +23,6 @@
     }
   },
   "devDependencies": {
-    "husky": "^3.1.0"
+    "husky": "^6.0.0"
   }
 }
