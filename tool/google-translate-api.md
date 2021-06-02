@@ -1,9 +1,9 @@
 # [@vitalets/google-translate-api](https://github.com/vitalets/google-translate-api)
 使用 google 翻译能力。
 
-1. 通过请求 `https://translate.google.com` 页面获取 token 数据：`FdrFJe` 和 `cfb2h`
-2. 使用 token 数据拼接翻译 post 请求 `https://translate.google.com/_/TranslateWebserverUi/data/batchexecute`
-    - 返回内容解析
+1. 通过请求 `https://translate.google.com` 页面，获取 token 数据：`FdrFJe` 和 `cfb2h`；
+2. 使用 token 数据，拼接翻译 post 请求 `https://translate.google.com/_/TranslateWebserverUi/data/batchexecute`
+    - 返回内容解析：
         - 忽略前6个字符
         - 以数字+json的组合，数字表示json字符长度
         - 取第一个 json 数据的 `json[0][2]`
