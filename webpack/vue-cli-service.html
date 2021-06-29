@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>vue-cli-service | How It Works</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/how-it-works/imgs/logo.png">
+    <meta name="description" content="记录一些项目的源码解析。">
+    <meta property="keyword" content="代码解析,How it Works,talltotal">
+    
+    <link rel="preload" href="/how-it-works/assets/css/0.styles.b9347ba2.css" as="style"><link rel="preload" href="/how-it-works/assets/js/app.33689061.js" as="script"><link rel="preload" href="/how-it-works/assets/js/3.fa2c1dd4.js" as="script"><link rel="preload" href="/how-it-works/assets/js/51.33e73cea.js" as="script"><link rel="prefetch" href="/how-it-works/assets/js/10.e0c819dc.js"><link rel="prefetch" href="/how-it-works/assets/js/11.cd7b93d1.js"><link rel="prefetch" href="/how-it-works/assets/js/12.eba54201.js"><link rel="prefetch" href="/how-it-works/assets/js/13.fb6b29d4.js"><link rel="prefetch" href="/how-it-works/assets/js/14.a4da36bb.js"><link rel="prefetch" href="/how-it-works/assets/js/15.2dd1b7dc.js"><link rel="prefetch" href="/how-it-works/assets/js/16.72b9cc84.js"><link rel="prefetch" href="/how-it-works/assets/js/17.1244959c.js"><link rel="prefetch" href="/how-it-works/assets/js/18.2b131519.js"><link rel="prefetch" href="/how-it-works/assets/js/19.6d5c27ce.js"><link rel="prefetch" href="/how-it-works/assets/js/20.09ffcd46.js"><link rel="prefetch" href="/how-it-works/assets/js/21.c19e5908.js"><link rel="prefetch" href="/how-it-works/assets/js/22.bc307642.js"><link rel="prefetch" href="/how-it-works/assets/js/23.995c056d.js"><link rel="prefetch" href="/how-it-works/assets/js/24.374501c2.js"><link rel="prefetch" href="/how-it-works/assets/js/25.a187fd3f.js"><link rel="prefetch" href="/how-it-works/assets/js/26.a3ad453b.js"><link rel="prefetch" href="/how-it-works/assets/js/27.4db31480.js"><link rel="prefetch" href="/how-it-works/assets/js/28.db44b30d.js"><link rel="prefetch" href="/how-it-works/assets/js/29.652f8b61.js"><link rel="prefetch" href="/how-it-works/assets/js/30.fa056d71.js"><link rel="prefetch" href="/how-it-works/assets/js/31.a910c66b.js"><link rel="prefetch" href="/how-it-works/assets/js/32.bde6af09.js"><link rel="prefetch" href="/how-it-works/assets/js/33.826b47d2.js"><link rel="prefetch" href="/how-it-works/assets/js/34.aa568c8c.js"><link rel="prefetch" href="/how-it-works/assets/js/35.53ef6575.js"><link rel="prefetch" href="/how-it-works/assets/js/36.c5e8fc15.js"><link rel="prefetch" href="/how-it-works/assets/js/37.a4dcb0b5.js"><link rel="prefetch" href="/how-it-works/assets/js/38.819e09de.js"><link rel="prefetch" href="/how-it-works/assets/js/39.7a07afcf.js"><link rel="prefetch" href="/how-it-works/assets/js/4.8c34c4ac.js"><link rel="prefetch" href="/how-it-works/assets/js/40.f940a712.js"><link rel="prefetch" href="/how-it-works/assets/js/41.757743ee.js"><link rel="prefetch" href="/how-it-works/assets/js/42.223a2370.js"><link rel="prefetch" href="/how-it-works/assets/js/43.89685925.js"><link rel="prefetch" href="/how-it-works/assets/js/44.504b81c9.js"><link rel="prefetch" href="/how-it-works/assets/js/45.4fe08213.js"><link rel="prefetch" href="/how-it-works/assets/js/46.1c294968.js"><link rel="prefetch" href="/how-it-works/assets/js/47.e81ab328.js"><link rel="prefetch" href="/how-it-works/assets/js/48.2a2bda21.js"><link rel="prefetch" href="/how-it-works/assets/js/49.28a9dc9d.js"><link rel="prefetch" href="/how-it-works/assets/js/5.65a575f7.js"><link rel="prefetch" href="/how-it-works/assets/js/50.278ab379.js"><link rel="prefetch" href="/how-it-works/assets/js/52.841e5224.js"><link rel="prefetch" href="/how-it-works/assets/js/53.712c67a8.js"><link rel="prefetch" href="/how-it-works/assets/js/54.1d2efdaa.js"><link rel="prefetch" href="/how-it-works/assets/js/55.b1db95b0.js"><link rel="prefetch" href="/how-it-works/assets/js/56.25394d0a.js"><link rel="prefetch" href="/how-it-works/assets/js/6.331a50d9.js"><link rel="prefetch" href="/how-it-works/assets/js/7.aad8c6ae.js"><link rel="prefetch" href="/how-it-works/assets/js/8.a73e40a4.js"><link rel="prefetch" href="/how-it-works/assets/js/9.75cc28b5.js"><link rel="prefetch" href="/how-it-works/assets/js/vendors~docsearch.823fed42.js">
+    <link rel="stylesheet" href="/how-it-works/assets/css/0.styles.b9347ba2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/how-it-works/" class="home-link router-link-active"><!----> <span class="site-name">
+      How It Works
+    </span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" placeholder="请查询" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/how-it-works/" class="nav-link">首页</a></div><div class="nav-item"><a href="https://github.com/talltotal/how-it-works" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/how-it-works/" class="nav-link">首页</a></div><div class="nav-item"><a href="https://github.com/talltotal/how-it-works" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/how-it-works/" aria-current="page" class="sidebar-link">Home</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>babel</span> <span class="arrow up"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>back-end</span> <span class="arrow up"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>chromium</span> <span class="arrow up"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>front-end</span> <span class="arrow up"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>next.js</span> <span class="arrow up"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>tool</span> <span class="arrow up"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>vscode-extension</span> <span class="arrow up"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>webpack</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/how-it-works/webpack/cache-loader.html" class="sidebar-link">cache-loader</a></li><li><a href="/how-it-works/webpack/extract-text-webpack-plugin.html" class="sidebar-link">extract-text-webpack-plugin</a></li><li><a href="/how-it-works/webpack/happypack.html" class="sidebar-link">happypack@3.1.0</a></li><li><a href="/how-it-works/webpack/mini-css-extract-plugin.html" class="sidebar-link">mini-css-extract-plugin</a></li><li><a href="/how-it-works/webpack/optimize-css-assets-webpack-plugin.html" class="sidebar-link">optimize-css-assets-webpack-plugin</a></li><li><a href="/how-it-works/webpack/script-loader.html" class="sidebar-link">script-loader</a></li><li><a href="/how-it-works/webpack/speed-measure-webpack-plugin.html" class="sidebar-link">speed-measure-webpack-plugin</a></li><li><a href="/how-it-works/webpack/tapable.html" class="sidebar-link">tapable</a></li><li><a href="/how-it-works/webpack/terser-webpack-plugin.html" class="sidebar-link">terser-webpack-plugin</a></li><li><a href="/how-it-works/webpack/thread-loader.html" class="sidebar-link">thread-loader</a></li><li><a href="/how-it-works/webpack/url-loader.html" class="sidebar-link">url-loader</a></li><li><a href="/how-it-works/webpack/vue-cli-service.html" aria-current="page" class="active sidebar-link">vue-cli-service</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/how-it-works/webpack/vue-cli-service.html#最佳实践" class="sidebar-link">最佳实践</a></li><li class="sidebar-sub-header"><a href="/how-it-works/webpack/vue-cli-service.html#结构" class="sidebar-link">结构</a></li><li class="sidebar-sub-header"><a href="/how-it-works/webpack/vue-cli-service.html#webpack-config" class="sidebar-link">webpack-config</a></li><li class="sidebar-sub-header"><a href="/how-it-works/webpack/vue-cli-service.html#babel-config" class="sidebar-link">babel-config</a></li><li class="sidebar-sub-header"><a href="/how-it-works/webpack/vue-cli-service.html#modern" class="sidebar-link">MODERN</a></li><li class="sidebar-sub-header"><a href="/how-it-works/webpack/vue-cli-service.html#优化编译配置" class="sidebar-link">优化编译配置</a></li></ul></li><li><a href="/how-it-works/webpack/vue-loader.html" class="sidebar-link">vue-loader</a></li><li><a href="/how-it-works/webpack/watchpack.html" class="sidebar-link">watchpack</a></li><li><a href="/how-it-works/webpack/webpack-parallel-uglify-plugin.html" class="sidebar-link">webpack-parallel-uglify-plugin@1.0.2</a></li><li><a href="/how-it-works/webpack/webpack-progress.html" class="sidebar-link">Webpack Progress</a></li><li><a href="/how-it-works/webpack/webpack.html" class="sidebar-link">webpack@4.x</a></li></ul></div></li></ul> </div> <div class="page"> <div class="content__default"><h1 id="vue-cli-service"><a href="#vue-cli-service" class="header-anchor">#</a> <a href="https://cli.vuejs.org/" target="_blank" rel="noopener noreferrer">vue-cli-service<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h1> <blockquote><p>基于 webpack 的 vue 项目编译打包最佳实践工具</p></blockquote> <h2 id="最佳实践"><a href="#最佳实践" class="header-anchor">#</a> 最佳实践</h2> <ul><li>工程：
+<ul><li>githooks-<a href="https://github.com/yyx990803/yorkie" target="_blank" rel="noopener noreferrer">yorkie<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>用于一些git流程管理</li></ul></li> <li>编译：
+<ul><li>缓存/多线程</li></ul></li> <li>浏览器兼容
+<ul><li><a href="https://github.com/browserslist/browserslist" target="_blank" rel="noopener noreferrer">browserslist<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>css: autoprefixer、postcss</li> <li>es: babel</li> <li>modern</li></ul></li> <li>开发兼容
+<ul><li><code>postcss</code> <code>less</code> <code>sass</code> <code>stylus</code></li></ul></li> <li>模块化
+<ul><li><code>css modules</code></li></ul></li> <li>自动注入 resource hint (preload/prefetch、manifest 和图标链接 (当用到 PWA 插件时) 以及构建过程中处理的 JavaScript 和 CSS 文件的资源链接（消耗带宽，根据具体情况调整）</li> <li>更便捷的多页面配置<code>pages</code></li></ul> <h2 id="结构"><a href="#结构" class="header-anchor">#</a> 结构</h2> <ol><li><code>@vue/cli-service/bin/vue-cli-service.js</code> 接收终端指令</li> <li><code>@vue/cli-service/lib/Service.js</code> ‘终端指令’到‘用户配置’到‘插件’的处理层
+<ul><li>结合配置文件、终端指令参数，做脚本的不同环境和模式</li> <li>插件做对应指令的注册、配置的处理</li> <li>插件的来源
+<ul><li><code>@vue/cli-service</code>中默认的<code>command</code>和<code>config</code></li> <li>工程<code>package.json</code>中
+<ul><li><code>devDependencies</code>和<code>dependencies</code>中匹配<code>/^(@vue\/|vue-|@[\w-]+(\.)?[\w-]+\/vue-)cli-plugin-/</code>的</li> <li>配置的<code>vuePlugins.service</code></li></ul></li></ul></li></ul></li> <li><code>@vue/cli-service/lib/PluginAPI.js</code> 做 server 和 plugin 的中间层，做一定的隔离效果</li></ol> <h2 id="webpack-config"><a href="#webpack-config" class="header-anchor">#</a> webpack-config</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">{</span>
+    <span class="token comment">// 编译模式，webpack提供了预配置</span>
+    mode<span class="token operator">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+    <span class="token comment">// 工程上下文</span>
+    context<span class="token operator">:</span> process<span class="token punctuation">.</span><span class="token function">cwd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token comment">// 入口文件</span>
+    entry<span class="token operator">:</span> <span class="token punctuation">{</span>
+        app<span class="token operator">:</span> <span class="token string">'./src/main.js'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// c出口</span>
+    output<span class="token operator">:</span> <span class="token punctuation">{</span>
+        path<span class="token operator">:</span> <span class="token string">'dist'</span><span class="token punctuation">,</span>
+        filename<span class="token operator">:</span> <span class="token string">'[name].js'</span><span class="token punctuation">,</span>
+        publicPath<span class="token operator">:</span> <span class="token string">'/'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 模块加载路径处理</span>
+    resolve<span class="token operator">:</span> <span class="token punctuation">{</span>
+        plugin<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token operator">...</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'pnp-webpack-plugin'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        extensions<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'.mjs'</span><span class="token punctuation">,</span> <span class="token string">'.js'</span><span class="token punctuation">,</span> <span class="token string">'.jsx'</span><span class="token punctuation">,</span> <span class="token string">'.vue'</span><span class="token punctuation">,</span> <span class="token string">'.json'</span><span class="token punctuation">,</span> <span class="token string">'.wasm'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        modules<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">'node_modules'</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        alias<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">'@'</span><span class="token operator">:</span> <span class="token string">'src'</span><span class="token punctuation">,</span>
+            <span class="token string">'vue$'</span><span class="token operator">:</span> <span class="token string">'vue/dist/vue.esm.js'</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    resolveLoader<span class="token operator">:</span> <span class="token punctuation">{</span>
+        plugin<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token operator">...</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'pnp-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>topLevelLoader
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        modules<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">'node_modules'</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    module<span class="token operator">:</span> <span class="token punctuation">{</span>
+        noParse<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(vue|vue-router|vuex|vuex-router-sync)$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+        rule<span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token string">'vue'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.vue$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+                use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'cache-loader'</span><span class="token punctuation">,</span> <span class="token string">'vue-loader'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token string">'images'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.(png|jpe?g|gif|webp)(\?.*)?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+                use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'url-loader'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token string">'svg'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.(svg)(\?.*)?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+                use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'file-loader'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token string">'media'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+                use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'url-loader'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token string">'fonts'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.(woff2?|eot|ttf|otf)(\?.*)?$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">,</span>
+                use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'url-loader'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token string">'pug'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.pug$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+                oneOf<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    <span class="token string">'pug-vue'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                        resourceQuery<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">vue</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+                        use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'pug-plain-loader'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">'pug-template'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                        use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'raw-loader'</span><span class="token punctuation">,</span> <span class="token string">'pug-plain-loader'</span><span class="token punctuation">]</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token comment">// 由`package.json`中`devDependencies`或`dependencies`配置`@vue/cli-plugin-babel`</span>
+            <span class="token string">'js'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.m?jsx?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+                use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'cache-loader'</span><span class="token punctuation">,</span> <span class="token string">'thread-loader'</span><span class="token punctuation">,</span> <span class="token string">'babel-loader'</span><span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    optimization<span class="token operator">:</span> <span class="token punctuation">{</span>
+        minimizer<span class="token operator">:</span> <span class="token string">'terser-webpack-plugin'</span><span class="token punctuation">,</span>
+        splitChunks<span class="token operator">:</span> <span class="token punctuation">{</span>
+            cacheGroups<span class="token operator">:</span> <span class="token punctuation">{</span>
+                vendors<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    name<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">chunk-vendors</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                    test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[\\/]node_modules[\\/]</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+                    priority<span class="token operator">:</span> <span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span>
+                    chunks<span class="token operator">:</span> <span class="token string">'initial'</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                common<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    name<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">chunk-common</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                    minChunks<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+                    priority<span class="token operator">:</span> <span class="token operator">-</span><span class="token number">20</span><span class="token punctuation">,</span>
+                    chunks<span class="token operator">:</span> <span class="token string">'initial'</span><span class="token punctuation">,</span>
+                    reuseExistingChunk<span class="token operator">:</span> <span class="token boolean">true</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 源码映射</span>
+    devtool<span class="token operator">:</span> <span class="token string">'cheap-module-eval-source-map'</span><span class="token punctuation">,</span>
+    plugin<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">'vue-loader'</span><span class="token punctuation">,</span>
+        <span class="token comment">// 模块热替换</span>
+        <span class="token string">'webpack/lib/HotModuleReplacementPlugin'</span><span class="token punctuation">,</span>
+        <span class="token comment">// 编译进度</span>
+        <span class="token string">'webpack/lib/ProgressPlugin'</span><span class="token punctuation">,</span>
+        <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>DefinePlugin<span class="token punctuation">,</span>
+        <span class="token comment">// 区分大小写的路径</span>
+        <span class="token string">'case-sensitive-paths-webpack-plugin'</span><span class="token punctuation">,</span>
+        <span class="token string">'@soda/friendly-errors-webpack-plugin'</span><span class="token punctuation">,</span>
+        <span class="token string">'html-webpack-plugin'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token string">'@vue/preload-webpack-plugin'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            rel<span class="token operator">:</span> <span class="token string">'preload'</span><span class="token punctuation">,</span>
+            include<span class="token operator">:</span> <span class="token string">'initial'</span><span class="token punctuation">,</span>
+            fileBlacklist<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.map$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">hot-update\.js$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token string">'@vue/preload-webpack-plugin'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            rel<span class="token operator">:</span> <span class="token string">'prefetch'</span><span class="token punctuation">,</span>
+            include<span class="token operator">:</span> <span class="token string">'asyncChunks'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token string">'copy-webpack-plugin'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    devServer<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否使用 https 协议</span>
+        https<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token comment">// 域名</span>
+        host<span class="token operator">:</span> <span class="token string">'0.0.0.0'</span><span class="token punctuation">,</span>
+        <span class="token comment">// 端口</span>
+        port<span class="token operator">:</span> <span class="token number">8080</span><span class="token punctuation">,</span>
+        <span class="token comment">// 代理</span>
+        proxy<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+        <span class="token comment">// 日志等级</span>
+        logLevel<span class="token operator">:</span> <span class="token string">'silent'</span><span class="token punctuation">,</span>
+        clientLogLevel<span class="token operator">:</span> <span class="token string">'silent'</span><span class="token punctuation">,</span>
+        <span class="token comment">// 使用html5 history接口，用index.html响应404请求</span>
+        historyApiFallback<span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 请求中有.符号时，不使用index.html</span>
+            disableDotRule<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            <span class="token comment">// 用于响应的index.html文件，这里支持匹配多页面模式对应的多html情况</span>
+            rewrites<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token comment">// 静态资源基本上下文</span>
+        contentBase<span class="token operator">:</span> <span class="token string">'public'</span><span class="token punctuation">,</span>
+        <span class="token comment">// 观察静态资源文件的变化</span>
+        watchContentBase<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token comment">// 启用热更新</span>
+        hot<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token comment">// 不启用gzip压缩</span>
+        compress<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token comment">// 获取静态资源的请求路径</span>
+        publicPath<span class="token operator">:</span> <span class="token string">'/'</span><span class="token punctuation">,</span>
+        <span class="token comment">// 异常时，在整个页面上展示</span>
+        overlay<span class="token operator">:</span> <span class="token punctuation">{</span> warnings<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> errors<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token comment">// 不启动自动在浏览器上打开</span>
+        open<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="babel-config"><a href="#babel-config" class="header-anchor">#</a> babel-config</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 在文件 `babel.config.json` 或 `.babelrc.json` 配置 `presets: ['@vue/cli-plugin-babel/preset']`</span>
+<span class="token comment">// 即 `@vue/babel-preset-app/index.js`</span>
+<span class="token comment">// 通过 `process.env` 环境变量跨工程‘通信’</span>
+
+<span class="token keyword">const</span> envOptions <span class="token operator">=</span> <span class="token punctuation">{</span>
+    bugfixes<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    corejs<span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'core-js/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">,</span>
+    loose<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    debug<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    modules<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token comment">// 目标浏览器，默认取`.browserslistrc`文件/`package.json`的`browserslist`配置项</span>
+    targets<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;&gt; 1%&quot;</span><span class="token punctuation">,</span>
+        <span class="token string">&quot;last 2 versions&quot;</span><span class="token punctuation">,</span>
+        <span class="token string">&quot;not dead&quot;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    useBuiltIns<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    exclude<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token comment">// promise polyfill alone doesn't work in IE,</span>
+        <span class="token comment">// needs this as well. see: #1642</span>
+        <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'core-js-compat'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token string">'es.array.iterator'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token comment">// this is required for webpack code splitting, vuex etc.</span>
+        <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'core-js-compat'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token string">'es.promise'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token comment">// this is needed for object rest spread support in templates</span>
+        <span class="token comment">// as vue-template-es2015-compiler 1.8+ compiles it to Object.assign() calls.</span>
+        <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'core-js-compat'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token string">'es.object.assign'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token comment">// #2012 es.promise replaces native Promise in FF and causes missing finally</span>
+        <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'core-js-compat'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token string">'es.promise.finally'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">{</span>
+    <span class="token comment">// 源码类型：如果存在import/export语句，则将文件视为“模块” ，否则将其视为“脚本”</span>
+    sourceType<span class="token operator">:</span> <span class="token string">'unambiguous'</span><span class="token punctuation">,</span>
+    <span class="token comment">// 合并当前配置，主要是为了把`@babel/runtime`拎出来处理</span>
+    overrides<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            exclude<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">@babel[\/|\\\\]runtime</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">core-js</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            presets<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">[</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@babel/preset-env'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> envOptions<span class="token punctuation">]</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token comment">// 小于等于 stage-3 的插件</span>
+                <span class="token comment">// 异步import</span>
+                <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@babel/plugin-syntax-dynamic-import'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">[</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@babel/plugin-proposal-decorators'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                decoratorsBeforeExport<span class="token punctuation">,</span>
+                legacy<span class="token operator">:</span> decoratorsLegacy <span class="token operator">!==</span> <span class="token boolean">false</span>
+                <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">[</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@babel/plugin-proposal-class-properties'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> loose <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">[</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@babel/plugin-transform-runtime'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                    regenerator<span class="token operator">:</span> useBuiltIns <span class="token operator">!==</span> <span class="token string">'usage'</span><span class="token punctuation">,</span>
+
+                    <span class="token comment">// polyfills are injected by preset-env &amp; polyfillsPlugin, so no need to add them again</span>
+                    corejs<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+
+                    helpers<span class="token operator">:</span> useBuiltIns <span class="token operator">===</span> <span class="token string">'usage'</span><span class="token punctuation">,</span>
+                    useESModules<span class="token operator">:</span> <span class="token operator">!</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_CLI_BABEL_TRANSPILE_MODULES</span><span class="token punctuation">,</span>
+
+                    absoluteRuntime<span class="token punctuation">,</span>
+
+                    version
+                <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment">// there are some untranspiled code in @babel/runtime</span>
+            <span class="token comment">// https://github.com/babel/babel/issues/9903</span>
+            include<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">@babel[\/|\\\\]runtime</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            presets<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">[</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@babel/preset-env'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> envOptions<span class="token punctuation">]</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="modern"><a href="#modern" class="header-anchor">#</a> MODERN</h2> <blockquote><p>现代模式
+按两个线程进行编译（<code>@vue/cli-service/lib/commands/build/index.js</code>---Ln55）</p></blockquote> <p>差异：</p> <ul><li>使用 ESM 模块模式</li> <li>babel 去掉不需要的语法兼容处理</li></ul> <p>实现：</p> <ul><li>用环境变量<code>VUE_CLI_MODERN_MODE``VUE_CLI_MODERN_BUILD</code>做标识，区分线程类型</li> <li>先以非 modern 模式
+<ul><li><code>outputFilename</code>加后缀<code>-legacy</code></li> <li>不做 html 的 preload 插入，不做静态文件的 copy；这些在后面 modern 模式中做一次就够了</li> <li>在 htmlWebpackPluginAlterAssetTags 保存要插入的内容</li></ul></li> <li>后以 modern 模式
+<ul><li>注意<code>clean:false</code>，即保留上面的编译结果；相应的，相同文件将被覆盖</li> <li>对<code>babel</code>配置<code>useESModules:true</code>，不使用<code>@babel/plugin-transform-modules-commonjs</code></li> <li>对<code>babel</code>配置<code>ignoreBrowserslistConfig:true</code>，不使用默认的browserslist</li> <li>在 htmlWebpackPluginAlterAssetTags
+<ul><li>给script加type:module属性</li> <li>取出上面保存的script加nomodule属性，并加到当前的html中，删除临时文件</li></ul></li></ul></li></ul> <h2 id="优化编译配置"><a href="#优化编译配置" class="header-anchor">#</a> 优化编译配置</h2> <p>在默认的配置下，优化编译性能。
+在<code>package.json</code>增加插件配置：</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;vuePlugins&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;service&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">&quot;./my/vue/plugin.js&quot;</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">api</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    api<span class="token punctuation">.</span><span class="token function">chainWebpack</span><span class="token punctuation">(</span><span class="token parameter">webpackConfig</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment">// receive the chainable webpack config</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    api<span class="token punctuation">.</span><span class="token function">configureWebpack</span><span class="token punctuation">(</span><span class="token parameter">webpackConfig</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment">// receive the raw webpack config</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="增加css文件cache"><a href="#增加css文件cache" class="header-anchor">#</a> 增加css文件cache</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> cssVersion <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'css-loader'</span><span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'css-loader/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">,</span>
+    <span class="token string">'postcss-loader'</span><span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'postcss-loader/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> vueVersion <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>cssVersion<span class="token punctuation">,</span>
+    <span class="token string">'vue-loader'</span><span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'vue-loader/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">,</span>
+    <span class="token string">'@vue/component-compiler-utils'</span><span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@vue/component-compiler-utils/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">,</span>
+    <span class="token string">'vue-template-compiler'</span><span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'vue-template-compiler/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> lessVersion <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>cssVersion<span class="token punctuation">,</span>
+    <span class="token string">'less-loader'</span><span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'less-loader/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> lessVueVersion <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>vueVersion<span class="token punctuation">,</span>
+    <span class="token string">'less-loader'</span><span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'less-loader/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version
+<span class="token punctuation">}</span>
+<span class="token comment">/* eslint-disable indent */</span>
+webpackConfig<span class="token punctuation">.</span>module<span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">'less'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">oneOf</span><span class="token punctuation">(</span><span class="token string">'vue-modules'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span>require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">'extract-css-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span><span class="token function">genCacheConfig</span><span class="token punctuation">(</span><span class="token string">'less-vue-modules-loader'</span><span class="token punctuation">,</span> lessVueVersion<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">oneOf</span><span class="token punctuation">(</span><span class="token string">'vue'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span>require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">'extract-css-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span><span class="token function">genCacheConfig</span><span class="token punctuation">(</span><span class="token string">'less-vue-loader'</span><span class="token punctuation">,</span> lessVueVersion<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">oneOf</span><span class="token punctuation">(</span><span class="token string">'normal'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span>require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">'extract-css-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span><span class="token function">genCacheConfig</span><span class="token punctuation">(</span><span class="token string">'less-normal-loader'</span><span class="token punctuation">,</span> lessVersion<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+webpackConfig<span class="token punctuation">.</span>module<span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">'css'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">oneOf</span><span class="token punctuation">(</span><span class="token string">'vue-modules'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span>require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">'extract-css-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span><span class="token function">genCacheConfig</span><span class="token punctuation">(</span><span class="token string">'css-vue-modules-loader'</span><span class="token punctuation">,</span> vueVersion<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">oneOf</span><span class="token punctuation">(</span><span class="token string">'vue'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span>require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">'extract-css-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span><span class="token function">genCacheConfig</span><span class="token punctuation">(</span><span class="token string">'css-vue-loader'</span><span class="token punctuation">,</span> vueVersion<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">oneOf</span><span class="token punctuation">(</span><span class="token string">'normal'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span>require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">'extract-css-loader'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span><span class="token function">genCacheConfig</span><span class="token punctuation">(</span><span class="token string">'css-normal-loader'</span><span class="token punctuation">,</span> cssVersion<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><h3 id="注意无法缓存的css"><a href="#注意无法缓存的css" class="header-anchor">#</a> 注意无法缓存的<code>css</code></h3> <p><code>less-loader</code>不会处理文件中的<code>@import('xxx.css')</code>，由<code>css-loader</code>拼接loader处理。
+这个过程无法将<code>cache-loader</code>加入。</p> <h3 id="给optimize-css增加缓存"><a href="#给optimize-css增加缓存" class="header-anchor">#</a> 给<code>optimize-css</code>增加缓存</h3> <p><code>@intervolga/optimize-cssnano-plugin@1.0.5</code>没有支持缓存的功能，
+可以替换插件，这里以<code>css-minimizer-webpack-plugin</code>为例。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">if</span> <span class="token punctuation">(</span>webpackConfig<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span><span class="token string">'optimize-css'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    webpackConfig
+        <span class="token punctuation">.</span>plugins
+        <span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">'optimize-css'</span><span class="token punctuation">)</span>
+
+    webpackConfig
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'css-minimizer-webpack-plugin'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'css-minimizer-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <div class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新: </span> <span class="time">6/29/2021, 8:35:23 AM</span></div></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ← <a href="/how-it-works/webpack/url-loader.html" class="prev">
+          url-loader
+        </a></span> <span class="next"><a href="/how-it-works/webpack/vue-loader.html">
+          vue-loader
+        </a> →
+      </span></p></div> </div> <!----></div><div class="global-ui"></div></div>
+    <script src="/how-it-works/assets/js/app.33689061.js" defer></script><script src="/how-it-works/assets/js/3.fa2c1dd4.js" defer></script><script src="/how-it-works/assets/js/51.33e73cea.js" defer></script>
+  </body>
+</html>
