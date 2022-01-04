@@ -1,7 +1,7 @@
 # webpack@4.x
 从入口文件开始，构建module，匹配文件类型的loader链，运行loader进行处理，得到module的依赖文件。
 再对依赖文件进行module构建，由此递归形成module的依赖网。
-根据入口和其他成组需要，组织chunk与module映射关系。最后根据chunk做静态文件的输出。
+根据入口和其他成组需要，组织chunk与module映射关系，并分组chunkGroup。最后根据chunk做静态文件的输出。
 
 
 
@@ -161,6 +161,7 @@
 - `compilation.hooks.afterOptimizeTree`
 - `compilation.hooks.optimizeChunkModulesBasic`
 - `compilation.hooks.optimizeChunkModules`
+    - `terser-webpack-plugin` 做 Tree-Shaking
 - `compilation.hooks.optimizeChunkModulesAdvanced`
 - `compilation.hooks.afterOptimizeChunkModules`
 - `compilation.hooks.shouldRecord`
@@ -178,7 +179,7 @@
 - `compilation.hooks.afterOptimizeChunkIds`
 - `compilation.hooks.recordModules`
 - `compilation.hooks.recordChunks`
-- hash 
+- hash
     > `crypto`
     - `compilation.hooks.beforeHash`
     - `compilation.hooks.afterHash`
@@ -206,4 +207,52 @@
 - 读取已存储的编译状态
     - 以对象的形式存储**编译状态**
     - json 文件持久化 ············ `recordsInputPath/recordsOutputPath/recordsPath`
+
+
+## SplitChunksPlugin
+> chunk 拆分插件，根据配置`options.optimization.splitChunks`运行
+
+在`compilation.hooks.optimizeChunksAdvanced`阶段
+
+默认：
+```js
+const splitChunks = {
+    // 选择哪些 chunk 进行优化
+    // all - 优化所有chunks，chunk 可以在异步和非异步 chunk 之间共享
+    // async - 非异步 chunk
+    // (chunk)=>boolean - 判断函数
+    chunks: 'async',
+    // 生成 chunk 的最小体积（以 bytes 为单位）
+    minSize: 20000,
+    minRemainingSize: 0,
+    // 拆分前必须共享模块的最小 chunks 数
+    minChunks: 1,
+    // 按需加载时的最大并行请求数
+    maxAsyncRequests: 30,
+    // 入口点的最大并行请求数
+    maxInitialRequests: 30,
+    enforceSizeThreshold: 50000,
+    // 缓存组，继承上面的属性
+    cacheGroups: {
+        defaultVendors: {
+            // 匹配规则
+            test: /[\\/]node_modules[\\/]/,
+            // 优先级
+            priority: -10,
+            // 如果当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用，而不是生成新的模块
+            reuseExistingChunk: true,
+        },
+        default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+        },
+        // 设置为 false 以禁用默认缓存组
+        // defaultVendors: false
+        // default: false
+    },
+}
+```
+
+
 

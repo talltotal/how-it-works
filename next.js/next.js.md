@@ -4,7 +4,7 @@
 ## build@10.0.2
 
 1. 初始
-    1. 使用`@next/env`根据运行模式，加载全局环境配置文件，使用`dotenv`解析
+    1. 加载环境变量：使用`@next/env`根据运行模式，加载全局环境配置文件，使用`dotenv`解析
         - `.env.${mode}.local`
         - `.env.local`
         - `.env.${mode}`
@@ -39,10 +39,97 @@
         - 由一些基本信息和`headers, rewrites, redirects`构成
     6. 构建`webpack`编译配置
         - client
-        - 
+        - server
     7. 运行`webpack`编译（此时编译结果已在`.next`目录下）
     8. 输出`webpack`编译`errors`和`warnings`
 3. 收集页面数据
     - 输出‘manifest’文件
     - 打印页面树结构
 
+
+### next-client-pages-loader
+
+### 默认的 splitChunks 配置
+> webpack4 开始使用 `SplitChunksPlugin` 拆分 chunks
+
+```ts
+{
+    chunks: 'all',
+    cacheGroups: {
+        default: false,
+        vendors: false,
+        // In webpack 5 vendors was renamed to defaultVendors
+        defaultVendors: false,
+        framework: {
+            chunks: 'all',
+            name: 'framework',
+            // This regex ignores nested copies of framework libraries so they're
+            // bundled with their issuer.
+            // https://github.com/vercel/next.js/pull/9012
+            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
+            priority: 40,
+            // Don't let webpack eliminate this chunk (prevents this chunk from
+            // becoming a part of the commons chunk)
+            enforce: true,
+        },
+        lib: {
+            test(module: { size: Function; identifier: Function }): boolean {
+                return (
+                    module.size() > 160000 &&
+                    /node_modules[/\\]/.test(module.identifier())
+                )
+            },
+            name(module: {
+                type: string
+                libIdent?: Function
+                updateHash: (hash: crypto.Hash) => void
+            }): string {
+                const hash = crypto.createHash('sha1')
+                if (isModuleCSS(module)) {
+                    module.updateHash(hash)
+                } else {
+                    if (!module.libIdent) {
+                        throw new Error(
+                        `Encountered unknown module type: ${module.type}. Please open an issue.`
+                        )
+                    }
+
+                    hash.update(module.libIdent({ context: dir }))
+                }
+
+                return hash.digest('hex').substring(0, 8)
+            },
+            priority: 30,
+            minChunks: 1,
+            reuseExistingChunk: true,
+        },
+        commons: {
+            name: 'commons',
+            minChunks: totalPages,
+            priority: 20,
+        },
+        shared: {
+            name(module, chunks) {
+                return (
+                crypto
+                    .createHash('sha1')
+                    .update(
+                    chunks.reduce(
+                        (acc: string, chunk: webpack.compilation.Chunk) => {
+                        return acc + chunk.name
+                        },
+                        ''
+                    )
+                    )
+                    .digest('hex') + (isModuleCSS(module) ? '_CSS' : '')
+                )
+            },
+            priority: 10,
+            minChunks: 2,
+            reuseExistingChunk: true,
+        },
+    },
+    maxInitialRequests: 25,
+    minSize: 20000,
+}
+```
