@@ -10,6 +10,9 @@
 
 1. 递归获取文件夹中符合条件的文件
 2. 根据文件夹结构对应构建路由结构
+3. 路由对象中`component`属性，即引用`.md`文件
+4. 在`umi`中，将动态路由数据放在临时文件`core/routes.ts`中
+    > `umi`中，临时文件`umi.ts`中将引用`core/routes.ts`文件
 
 
 ## `dumi-loader`
