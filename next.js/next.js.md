@@ -133,3 +133,10 @@
     minSize: 20000,
 }
 ```
+
+## `tsconfig.json`
+
+1. 判断工程下是否有`tsconfig.json`文件
+2. 加载`typescript`和`tsconfig.json`
+3. `webpackConfig.resolve?.modules?.push(tsconfig.compilerOptions.baseUrl)`
+3. `webpackConfig.resolve?.plugins?.unshift(new JsConfigPathsPlugin(tsconfig.compilerOptions.paths, tsconfig.compilerOptions.baseUrl))`

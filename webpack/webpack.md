@@ -209,6 +209,31 @@
     - json 文件持久化 ············ `recordsInputPath/recordsOutputPath/recordsPath`
 
 
+## resolve 插件
+> [enhanced-resolve](https://github.com/webpack/enhanced-resolve)
+
+- 配置位置：`webpackConfig.resolve.plugins`
+- hooks：
+    - `resolve`
+    - `parsedResolve`
+    - `describedResolve`
+    - `rawModule`
+    - `module`
+    - `relative`
+    - `describedRelative`
+    - `directory`
+    - `existingDirectory`
+    - `undescribedRawFile`
+    - `rawFile`
+    - `file`
+    - `existingFile`
+    - `resolved`
+- 定义在某hooks时执行的脚本
+    > 以‘下划线拼写’定义，`resolver.getHook`并支持`before-`和`after-`前缀
+    - `resolver.getHook(name).tapAsync(pluginName, (request, resolveContext, callback)=>{return callback()})`
+    - `resolver.getHook(name).tapPromise(pluginName, (request, resolveContext)=>{return Promise.resolve(undefined)})`
+
+
 ## SplitChunksPlugin
 > chunk 拆分插件，根据配置`options.optimization.splitChunks`运行
 
