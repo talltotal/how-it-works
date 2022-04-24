@@ -1,11 +1,13 @@
-# webpack@4.x
+# webpack
+
+## @4.x
 从入口文件开始，构建module，匹配文件类型的loader链，运行loader进行处理，得到module的依赖文件。
 再对依赖文件进行module构建，由此递归形成module的依赖网。
 根据入口和其他成组需要，组织chunk与module映射关系，并分组chunkGroup。最后根据chunk做静态文件的输出。
 
 
 
-## 设计
+### 设计
 1. **插件模式**（[tapable](https://github.com/webpack/tapable)）
     - 对做复杂工作的类定义工作的流程和步骤，将task前后甚至某些task本身命名为一个hook；创建类或触发类方法时流程开始
     - 此模式贯彻webpack，应用于几乎所有流程中：Compiler、Compilation、Template、 ModuleFactory、Parser...
@@ -26,8 +28,8 @@
     - 模块之间的依赖关系 `dependency`
 ```
 
-## 流程
-### 编译准备
+### 流程
+#### 编译准备
 - 入参校验
     - 定义所有可配项的校验规则（[ajv](https://www.npmjs.com/package/ajv)）
     - 校验有错误时，直接抛出错误（[Custom Error Types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#Custom_Error_Types)）
@@ -61,7 +63,7 @@
     - `compiler.resolverFactory.hooks.resolveOptions`
     - `compiler.hooks.afterResolvers`
 
-### run
+#### run
 - `compiler.hooks.beforeRun`
 - `compiler.hooks.run`
 - compile
@@ -71,21 +73,21 @@
 - `compiler.hooks.additionalPass`
 - `compiler.hooks.failed`
 
-### watch([watchpack](./watchpack.html))
+#### watch([watchpack](./watchpack.html))
 > 根据文件变化时间戳判断是否更新
 - `compiler.hooks.watchRun`
 - compile
 - emit
 - `compiler.hooks.watchClose`
 
-### compile
-#### 准备
+#### compile
+##### 准备
 - 【call·hook】
     - `compiler.hooks.beforeCompile`
     - `compiler.hooks.compile`
     - `compiler.hooks.thisCompilation`
     - `compiler.hooks.compilation`
-#### 进行（构建依赖网）
+##### 进行（构建依赖网）
 - `compiler.hooks.make`
     1. 从入口文件开始；即构建 dependencie 实例，调用`compilation.prefetch` / `compilation.addEntry`
         > SingleEntryPlugin
@@ -138,7 +140,7 @@
         - **compilation.hook**: `succeed-module(modules): void`
     4. 构建依赖：由3得到的模块的依赖列表即新的模块，从3开始递归创建/构建，得到最后的模块依赖网
     - 开始入口的 `module` 作为 `preparedChunk`
-#### 整理
+##### 整理
 - 整理编译的错误和警告
 - `compilation.hooks.finishModules`
 - `compilation.hooks.seal`
@@ -199,7 +201,7 @@
 - `compilation.hooks.afterSeal`
 - `compiler.hooks.afterCompile`
 
-### emit
+#### emit
 - `compiler.hooks.shouldEmit`
 - `compiler.hooks.assetEmitted`
 - `compiler.hooks.afterEmit`
@@ -209,7 +211,7 @@
     - json 文件持久化 ············ `recordsInputPath/recordsOutputPath/recordsPath`
 
 
-## resolve 插件
+### resolve 插件
 > [enhanced-resolve](https://github.com/webpack/enhanced-resolve)
 
 - 配置位置：`webpackConfig.resolve.plugins`
@@ -234,7 +236,7 @@
     - `resolver.getHook(name).tapPromise(pluginName, (request, resolveContext)=>{return Promise.resolve(undefined)})`
 
 
-## SplitChunksPlugin
+### SplitChunksPlugin
 > chunk 拆分插件，根据配置`options.optimization.splitChunks`运行
 
 在`compilation.hooks.optimizeChunksAdvanced`阶段
@@ -281,3 +283,17 @@ const splitChunks = {
 
 
 
+
+### MultiCompiler
+
+对有依赖关系的 compiler 同步编译；无依赖关系的，依次运行编译，因编译过程异步，即是同时编译的。
+
+期间 chunks/modules 一直未释放，为 Stats 提供数据。
+
+
+
+## @5.x
+
+### cache
+
+对文件的缓存，定义并保存`lastAccess`用于`maxAge`判断。

@@ -8,7 +8,7 @@ webpack 匹配执行 loader 顺序：
 由此，在`pitch`中做拦截判断，取得缓存后直接返回：
 1. 以`options.cacheIdentifier`以及`remainingRequest`做hash处理为`key`，取得储存的文件
 2. 判断`remainingRequest`一致
-3. 比对所有dep**文件修改时间**，全部一致则认为缓存可用
+3. 比对所有dep**文件修改时间**（`FS.stat`），全部一致则认为缓存可用
 4. 提供依赖，返回原处理结果
 
 在`default`函数中持久化其他loader的处理结果：

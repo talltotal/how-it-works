@@ -1,4 +1,4 @@
-# [webpack-parallel-uglify-plugin@1.0.2](git://github.com/gdborton/webpack-parallel-uglify-plugin)
+# [webpack-parallel-uglify-plugin@1.0.2](https://github.com/gdborton/webpack-parallel-uglify-plugin)
 > js 代码混淆插件，支持缓存/多进程
 
 1. 在 `compilation.optimize-chunk-assets` 做文件压缩，修改 `assetHash[assetName]` 值
