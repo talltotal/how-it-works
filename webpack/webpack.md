@@ -241,6 +241,8 @@
 
 在`compilation.hooks.optimizeChunksAdvanced`阶段
 
+遍历`modules`根据`test`配置匹配 -> 根据优先级（`priority`/`size`/...）-> 根据`maxInitialRequests`/`maxAsyncRequests`去除多的chunk
+
 默认：
 ```js
 const splitChunks = {
@@ -290,6 +292,17 @@ const splitChunks = {
 
 期间 chunks/modules 一直未释放，为 Stats 提供数据。
 
+
+
+### loader
+
+- request
+    - loader按顺序排列，最后是文件
+    - loader和文件之间使用`!`分隔
+    - 即最后一个`!`之后为文件
+    - `??`后面带`ident`
+        - 规则由 `RuleSet` 定义与解析(存在对象中)
+        - 对应 `compiler.options.module.defaultRules.concat(compiler.options.module.rules)`
 
 
 ## @5.x
