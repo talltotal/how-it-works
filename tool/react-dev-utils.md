@@ -8,6 +8,9 @@
 - 在 web 端点击链接时，发送此请求
 - 在 node 端收到请求时，触发`launchEditor`
 - 参数：文件的绝对路径、行数、列数
+- vscode 指令
+  - [文档](https://code.visualstudio.com/docs/editor/command-line)
+  - `code --help`
 
 
 单独运行的前提

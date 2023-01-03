@@ -27,8 +27,15 @@
 ## 语言插件基础
 - 定位：[Language Extensions](https://code.visualstudio.com/api/language-extensions/overview#programmatic-language-features)
     - [语法高亮](https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide)
-        - [分词 - TextMate](https://macromates.com/manual/en/language_grammars)
-        - 样式map
+        - 原理
+            1. [分词 - TextMate](https://macromates.com/manual/en/language_grammars)
+            2. 样式映射
+        - 配置方式
+            1. 在`package.json`里配置`contributes.grammars`
+            2. 在对应的`tmLanguage`文件中定义语法
+                > 如[handlebars](https://github.com/microsoft/vscode/tree/main/extensions/handlebars)
+                - 在`patterns`数组中`start`+`end`匹配，`name`对应高亮样式，再在`patterns`中匹配`start`和`end`之间的剩余文本
+                - 可以使用`include`引用vscode内置的语法或当前工程定义的语法`repository`
     - [Language Configuration Guide](https://code.visualstudio.com/api/language-extensions/language-configuration-guide)
         - 注释 Comment toggling
         - 代码块 Brackets definition
@@ -36,7 +43,7 @@
         - 自动包裹 Autosurrounding
         - 折叠 Folding
         - 写字板 Word pattern
-        - 缩减规则 Indentation Rules
+        - 缩进规则 Indentation Rules
     - [Programmatic Language Features](https://code.visualstudio.com/api/language-extensions/programmatic-language-features)
         - ways
             1. [vscode.languages.registerHoverProvider](https://code.visualstudio.com/api/references/vscode-api#languages.registerHoverProvider) API
