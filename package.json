@@ -10,11 +10,8 @@
   "repository": "git@github.com:talltotal/how-it-works.git",
   "author": "yangweicong <yangweicong@nicomama.com>",
   "license": "MIT",
-  "resolutions": {
-    "webpack-dev-middleware": "3.6.0"
-  },
   "dependencies": {
-    "vuepress": "^1.8.2",
+    "vuepress": "^1.9.8",
     "vuepress-theme-talltotal": "^0.0.13"
   },
   "husky": {
@@ -23,6 +20,7 @@
     }
   },
   "devDependencies": {
-    "husky": "^6.0.0"
-  }
+    "husky": "^8.0.3"
+  },
+  "packageManager": "yarn@3.3.1"
 }
